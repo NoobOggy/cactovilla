@@ -345,6 +345,21 @@
       box-shadow: 0 12px 30px rgba(34, 197, 94, 0.45);
     }
 
+    .btn-remove {
+      margin-left: 0.4rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: none;
+      background: #ef4444;
+      color: #f9fafb;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+
+    .btn-remove:hover {
+      opacity: 0.9;
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -499,7 +514,7 @@
       <a href="#products">What we offer</a>
       <a href="#plants">Plants</a>
       <a href="#contact">Contact</a>
-      <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">Order on Facebook</a>
+      <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">Page</a>
     </nav>
   </header>
 
@@ -524,8 +539,8 @@
         </ul>
 
         <div class="hero-actions">
-          <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">
-            Message us on Facebook
+          <a href="https://m.me/Cactovilla.bd" target="_blank" class="btn-primary">
+            Chat on Messenger
           </a>
           <small>Response time: usually within a few hours.</small>
         </div>
@@ -659,7 +674,7 @@
       <h2 class="section-title">Featured Plants (৳250 each)</h2>
       <p class="section-subtitle">
         Click “Add to cart” for the plants you like. Your selected items will appear in the cart
-        near the contact section. Then place your order via our Facebook page.
+        near the contact section. Then place your order via our Facebook Messenger.
       </p>
 
       <div class="product-grid">
@@ -751,7 +766,7 @@
     <section id="contact">
       <h2 class="section-title">Contact & Orders</h2>
       <p class="section-subtitle">
-        The fastest way to order is via our Facebook page. You can also use this form for general questions.
+        The fastest way to order is via our Facebook Messenger. You can also use this form for general questions.
       </p>
 
       <div class="contact">
@@ -777,14 +792,15 @@
 
         <div class="card">
           <h3>Reach CactoVilla</h3>
-          <p>Facebook: <strong><a href="https://www.facebook.com/Cactovilla.bd" target="_blank">CactoVilla.bd</a></strong></p>
+          <p>Facebook Page: <strong><a href="https://www.facebook.com/Cactovilla.bd" target="_blank">CactoVilla.bd</a></strong></p>
+          <p>Messenger: <strong><a href="https://m.me/Cactovilla.bd" target="_blank">m.me/Cactovilla.bd</a></strong></p>
           <p>Email: <strong>cactovilla.business@example.com</strong></p>
           <p>Location: <strong>106/2, Islambag, RK Road, Rangpur</strong></p>
           <p style="margin-top:0.6rem;">
             <strong>Order process:</strong><br/>
             1. Select plants on this page (Add to cart)<br/>
-            2. Click “Order via Facebook” below<br/>
-            3. Send us your cart summary + delivery address<br/>
+            2. Click “Order via Facebook Messenger” below<br/>
+            3. Paste the message we copied for you and send<br/>
             4. We confirm stock, payment & delivery
           </p>
 
@@ -795,11 +811,11 @@
             <p style="margin-top:0.4rem;font-size:0.85rem;">
               Total: <strong id="cart-total">৳0</strong>
             </p>
-            <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary" style="margin-top:0.6rem; display:inline-block; font-size:0.8rem;">
-              Order via Facebook
-            </a>
+            <button type="button" class="btn-primary" style="margin-top:0.6rem; display:inline-block; font-size:0.8rem;" onclick="orderViaFacebook()">
+              Order via Facebook Messenger
+            </button>
             <small style="display:block; margin-top:0.3rem;">
-              Take a screenshot of this cart or mention the plant names and quantities in your Facebook message.
+              When Messenger opens, just paste the message we copied for you and send.
             </small>
           </div>
 
@@ -832,6 +848,11 @@
       renderCart();
     }
 
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
     function renderCart() {
       const list = document.getElementById("cart-items");
       const emptyMsg = document.getElementById("cart-empty");
@@ -847,16 +868,89 @@
 
       emptyMsg.style.display = "none";
       let total = 0;
+
       cart.forEach((item, index) => {
         total += item.price;
+
         const li = document.createElement("li");
         li.textContent = (index + 1) + ". " + item.name + " – ৳" + item.price;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.className = "btn-remove";
+        removeBtn.onclick = function () {
+          removeFromCart(index);
+        };
+
+        li.appendChild(removeBtn);
         list.appendChild(li);
       });
+
       totalEl.textContent = "৳" + total;
+    }
+
+    function buildCartSummary() {
+      if (cart.length === 0) {
+        return "Hi CactoVilla,\nI was checking your website but my cart is empty right now.";
+      }
+
+      const counts = {};
+      let total = 0;
+
+      cart.forEach(item => {
+        if (!counts[item.name]) {
+          counts[item.name] = { qty: 0, price: item.price };
+        }
+        counts[item.name].qty += 1;
+        total += item.price;
+      });
+
+      const lines = [];
+      lines.push("Hi CactoVilla, I would like to order these plants from your website:");
+      lines.push("");
+
+      let i = 1;
+      for (const name in counts) {
+        const entry = counts[name];
+        const lineTotal = entry.qty * entry.price;
+        lines.push(i + ") " + name + " x" + entry.qty + " – ৳" + lineTotal);
+        i++;
+      }
+
+      lines.push("");
+      lines.push("Total: ৳" + total);
+      lines.push("");
+      lines.push("Delivery area: ______");
+      lines.push("Phone number: ______");
+
+      return lines.join("\n");
+    }
+
+    function orderViaFacebook() {
+      const summary = buildCartSummary();
+
+      // try to copy to clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summary)
+          .then(function () {
+            alert("Your order details have been copied. When Messenger opens, paste the message and send.");
+          })
+          .catch(function () {
+            alert("Copy to clipboard failed. You can copy this text manually:\n\n" + summary);
+          });
+      } else {
+        alert("Your browser does not support automatic copy. You can copy this message and send it in Messenger:\n\n" + summary);
+      }
+
+      // open Messenger chat with the page
+      const messengerUrl = "https://m.me/Cactovilla.bd";
+      window.open(messengerUrl, "_blank");
     }
   </script>
 </body>
 </html>
+
+
+
 
 
