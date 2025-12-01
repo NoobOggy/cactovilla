@@ -476,6 +476,35 @@
       color: #9ca3af;
     }
 
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      background: #22c55e;
+      color: #022c22;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 50;
+    }
+
+    .toast.error {
+      background: #ef4444;
+      color: #f9fafb;
+      box-shadow: 0 10px 30px rgba(248, 113, 113, 0.4);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
@@ -507,7 +536,7 @@
       <div class="logo-img">
         <img src="logo-cactovilla.jpg" alt="CactoVilla logo">
       </div>
-      <div class="logo-text">CactoVilla</div>
+      <div class="logo-text">CACTOVILLA</div>
     </div>
     <nav>
       <a href="#home">Home</a>
@@ -516,8 +545,7 @@
       <a href="#plants">Plants</a>
       <a href="#contact">Contact</a>
       <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">Page</a>
-</nav>
-
+    </nav>
   </header>
 
   <main>
@@ -833,6 +861,9 @@
     © <span id="year"></span> CactoVilla. All rights reserved.
   </footer>
 
+  <!-- Toast element -->
+  <div id="toast" class="toast"></div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -844,15 +875,37 @@
     }
 
     const cart = [];
+    let toastTimeout;
+
+    function showToast(message, type) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+
+      toast.textContent = message;
+      toast.classList.remove("show", "error");
+
+      if (type === "error") {
+        toast.classList.add("error");
+      }
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+    }
 
     function addToCart(name, price) {
       cart.push({ name, price });
       renderCart();
+      showToast("Item added to cart", "success");
     }
 
     function removeFromCart(index) {
       cart.splice(index, 1);
       renderCart();
+      showToast("Item removed from cart", "error");
     }
 
     function renderCart() {
@@ -931,11 +984,10 @@
     function orderViaFacebook() {
       const summary = buildCartSummary();
 
-      // try to copy to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(summary)
           .then(function () {
-            alert("Your order details have been copied. When Messenger opens, paste the message and send.");
+            showToast("Order text copied. Open Messenger & paste.", "success");
           })
           .catch(function () {
             alert("Copy to clipboard failed. You can copy this text manually:\n\n" + summary);
@@ -944,13 +996,14 @@
         alert("Your browser does not support automatic copy. You can copy this message and send it in Messenger:\n\n" + summary);
       }
 
-      // open Messenger chat with the page
       const messengerUrl = "https://m.me/Cactovilla.bd";
       window.open(messengerUrl, "_blank");
     }
   </script>
 </body>
 </html>
+
+
 
 
 
