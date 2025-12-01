@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CactoVilla | Cactus & Succulent Shop</title>
+  <meta name="description" content="CactoVilla – your friendly cactus & succulent shop in Rangpur, Bangladesh. Beautiful indoor cactus and succulents, cute pots and custom gifts. Order via Facebook & home delivery.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      padding: 1.1rem 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1f2937;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0, #166534);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #e5e7eb;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(34, 197, 94, 0.55);
+      opacity: 0.95;
+    }
+
+    main {
+      padding: 2.5rem 7% 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2.5rem;
+      align-items: center;
+      padding-top: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #14532d;
+      font-size: 0.7rem;
+      color: #bbf7d0;
+      background: rgba(6, 78, 59, 0.4);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #22c55e, #a3e635);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: #9ca3af;
+      max-width: 32rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-list {
+      list-style: none;
+      display: grid;
+      gap: 0.3rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: #a3e635;
+    }
+
+    .hero-list span {
+      color: #9ca3af;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+    }
+
+    .hero-actions small {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .hero-card {
+      border-radius: 1.6rem;
+      border: 1px solid #14532d;
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 60%),
+        radial-gradient(circle at bottom, rgba(21, 128, 61, 0.22), transparent 55%),
+        #020617;
+      padding: 1.6rem;
+      box-shadow: 0 20px 45px rgba(6, 95, 70, 0.75);
+    }
+
+    .hero-card h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card p {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .stat {
+      flex: 1;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #bbf7d0;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 1.8rem;
+      align-items: start;
+    }
+
+    .card {
+      border-radius: 1rem;
+      border: 1px solid #1f2937;
+      padding: 1.3rem;
+      background: #020617;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      border-color: #14532d;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.87rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+
+    .card small {
+      font-size: 0.72rem;
+      color: #6b7280;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid #14532d;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      color: #bbf7d0;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tag {
+      border-radius: 999px;
+      border: 1px solid #374151;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.72rem;
+      color: #9ca3af;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid #14532d;
+      padding: 0.9rem;
+      background: linear-gradient(145deg, #022c22, #04101c);
+      min-height: 130px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .gallery-item span {
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
+      gap: 2rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      border-radius: 0.7rem;
+      border: 1px solid #1f2937;
+      background: #020617;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    footer {
+      border-top: 1px solid #1f2937;
+      padding: 1.4rem 7%;
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    .socials a {
+      margin: 0 0.35rem;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .socials a:hover {
+      color: #bbf7d0;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding-inline: 5%;
+      }
+      main {
+        padding-inline: 5%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav a:nth-child(-n+2) {
+        display: none; /* hide some links on very small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🌵</div>
+      <div class="logo-text">CactoVilla</div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Plants</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">Order on Facebook</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-badge">
+          <span>✅ Fresh cactus & succulents in Rangpur</span>
+        </div>
+        <h1>Bring home a little desert with <span>CactoVilla</span></h1>
+        <p>
+          CactoVilla is a small online plant shop based in Rangpur, offering cute, low-maintenance
+          cactus and succulent plants, stylish pots, and mini table decorations.
+          Perfect for desks, gifts, and home decor.
+        </p>
+
+        <ul class="hero-list">
+          <li>🌿 <span>Indoor-friendly cactus & succulents</span></li>
+          <li>📦 <span>Delivery in Rangpur area, pickup from our address</span></li>
+          <li>💚 <span>Most plants between <strong>৳200–৳300</strong></span></li>
+        </ul>
+
+        <div class="hero-actions">
+          <a href="https://www.facebook.com/Cactovilla.bd" target="_blank" class="btn-primary">
+            Message us on Facebook
+          </a>
+          <small>Response time: usually within a few hours.</small>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h2>Today’s CactoVilla specials</h2>
+        <p>Ask on Facebook for real-time stock, colours and bundle offers.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Plants Sold</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">4.9★</div>
+            <div class="stat-label">Customer Love</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">৳200–300</div>
+            <div class="stat-label">Typical Price</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About CactoVilla</h2>
+      <p class="section-subtitle">
+        A tiny green corner in Rangpur, run with love.
+      </p>
+      <div class="about-grid">
+        <div class="card">
+          <p>
+            CactoVilla started as a small hobby of collecting cactus and succulent
+            plants and turned into a micro-business in Rangpur. We believe anyone can enjoy
+            indoor plants, even with a busy lifestyle.
+          </p>
+          <p>
+            Our focus is on <strong>easy-care plants</strong> that survive in small
+            apartments, hostel rooms, or office desks. Each plant is potted with
+            proper soil mix and basic care instructions.
+          </p>
+          <p>
+            We primarily take orders through our
+            <strong>Facebook page (CactoVilla.bd)</strong> and deliver through
+            courier or local meetup near Rangpur city.
+          </p>
+          <p>
+            Shop address (pickup):<br />
+            <strong>106/2, Islambag, RK Road, Rangpur</strong>
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Why customers choose us</h3>
+          <ul style="font-size:0.85rem; color:#9ca3af; margin-left:1rem; list-style:disc;">
+            <li>Healthy, pest-checked plants</li>
+            <li>Simple care tips for beginners</li>
+            <li>Custom gift packaging for birthdays or events</li>
+            <li>Friendly support over Facebook Messenger</li>
+          </ul>
+          <div class="pill-row">
+            <span class="pill">Student-run business</span>
+            <span class="pill">Indoor decor</span>
+            <span class="pill">Gifts & bundles</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS / SERVICES -->
+    <section id="products">
+      <h2 class="section-title">What We Offer</h2>
+      <p class="section-subtitle">
+        Main product categories from CactoVilla. For latest designs and exact prices (around ৳200–৳300), please check Facebook.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Mini Cactus Pots</h3>
+          <p>
+            Small cactus in ceramic or clay pots. Perfect for work desks, study tables
+            and window sills.
+          </p>
+          <p><strong>Price range:</strong> around ৳200–৳300 each.</p>
+          <small>Example: 5–8 cm plants in cute pots, starter care guide included.</small>
+        </div>
+
+        <div class="card">
+          <h3>Succulent Mix Arrangements</h3>
+          <p>
+            Mixed succulent bowls with different shapes and colours, arranged for
+            maximum visual impact.
+          </p>
+          <p><strong>Price:</strong> depends on bowl size and number of plants.</p>
+          <small>Custom colour themes available on request.</small>
+        </div>
+
+        <div class="card">
+          <h3>Gift Boxes & Custom Orders</h3>
+          <p>
+            Cactus gift boxes with greeting card and decoration. Great for birthdays,
+            anniversaries or “thank you” gifts.
+          </p>
+          <p><strong>Budget:</strong> we try to plan within your range, usually starting from ৳200–৳300 per plant.</p>
+          <small>Pre-order 2–3 days before your occasion.</small>
+        </div>
+
+        <div class="card">
+          <h3>Bulk Orders for Events</h3>
+          <p>
+            Small plants as return gifts or table decor for events, workshops or office
+            programs.
+          </p>
+          <p><strong>Special discount</strong> for bulk quantity (10+ pieces).</p>
+          <small>Contact us on Facebook for a custom quote.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMPLE GALLERY PLACEHOLDER -->
+    <section id="gallery">
+      <h2 class="section-title">Plant Style Ideas</h2>
+      <p class="section-subtitle">
+        Some ideas for how you can decorate your room or office with CactoVilla plants.
+        Replace this section later with your real photos.
+      </p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <span>Desk setup with 3 mini cactus in matching pots.</span>
+        </div>
+        <div class="gallery-item">
+          <span>Window-sill succulents getting soft morning light.</span>
+        </div>
+        <div class="gallery-item">
+          <span>Gift box with cactus, ribbon and handwritten note.</span>
+        </div>
+        <div class="gallery-item">
+          <span>Mixed arrangement for café / reception counter.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="section-title">Contact & Orders</h2>
+      <p class="section-subtitle">
+        The fastest way to order is via our Facebook page, but you can also send a
+        message using this form (demo).
+      </p>
+
+      <div class="contact">
+        <form onsubmit="handleSubmit(event)">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" placeholder="Your name" required />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div>
+            <label for="message">What would you like to order?</label>
+            <textarea id="message" name="message" placeholder="Example: 2 mini cactus pots (৳200–300), delivery area, preferred date..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary">Send Inquiry (Demo)</button>
+          <p id="form-status" style="font-size: 0.8rem; color: #9ca3af; margin-top: 0.5rem;"></p>
+        </form>
+
+        <div class="card">
+          <h3>Reach CactoVilla</h3>
+          <p>Facebook: <strong><a href="https://www.facebook.com/Cactovilla.bd" target="_blank">CactoVilla.bd</a></strong></p>
+          <p>Email: <strong>cactovilla.business@example.com</strong></p>
+          <p>Location: <strong>106/2, Islambag, RK Road, Rangpur</strong></p>
+          <p style="margin-top:0.6rem;">
+            <strong>Order process:</strong><br/>
+            1. Send us a message with screenshot/plant code<br/>
+            2. We confirm price & stock (usually ৳200–৳300 per plant)<br/>
+            3. You confirm address & payment method<br/>
+            4. We pack safely and ship / arrange pickup
+          </p>
+          <div class="pill-row" style="margin-top:0.9rem;">
+            <span class="pill">Facebook Shop</span>
+            <span class="pill">Local delivery in Rangpur</span>
+          </div>
+          <small style="display:block; margin-top:0.4rem;">Update payment options here (bKash, cash on delivery, etc.).</small>
+
+          <div class="socials" style="margin-top: 1rem;">
+            <a href="https://www.facebook.com/Cactovilla.bd" target="_blank">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> CactoVilla. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById("form-status").textContent =
+        "Thanks for your message! This demo form does not send emails yet. For real orders, please contact us on Facebook: CactoVilla.bd";
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
